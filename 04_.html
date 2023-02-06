@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>event</title>
+    <script src="https://unpkg.com/vue@3"></script>
+  </head>
+  <body>
+    <div id="app">
+      <button v-on:click="downNumber(myNum,$event)">감소</button>
+      <button @:click="upNumber">증가</button>
+      <p>결과:{{number}}</p>
+    </div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          myNum: 20,
+          number: 0,
+        };
+      },
+      methods: {
+        upNumber() {
+          this.number++;
+        },
+        downNumber(para, event) {
+          this.number -= para;
+          console.log(event.target);
+        },
+      },
+    });
+    app.mount("#app");
+  </script>
+</html>
