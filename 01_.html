@@ -13,9 +13,14 @@
     <p>안녕하세요</p>
   </body>
   <script>
+    let bodyEl = document.querySelector("body");
     let inputEl = document.getElementsByTagName("input")[0];
     let btnEl = document.querySelector("button");
     let pEl = document.querySelector("p");
+
+    const newPEL = document.createElement("div");
+    // console.dir(newPEL);
+    bodyEl.insertBefore(newPEL, inputEl);
 
     pEl.textContent = "test";
     inputEl.style.border = "2px solid red";
