@@ -14,3 +14,4 @@ let mySet = function (request, response) {
 const app = http.createServer(mySet);
 
 app.listen(8080);
+// node server.js 실행 후 localhost:8080로 이동
