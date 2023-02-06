@@ -15,16 +15,33 @@
       <hr />
       <input type="text" v-model="age" />
       <h2>나이 : {{age}}</h2>
-      <p>{{aboutMe}}</p>
+      <p v-bind:[att]="text">{{aboutMe}}</p>
       <p>{{age<40?'청년':'중년'}}</p>
       <button v-on:click="addAge">나이 증가</button>
+      <a href="" v-on:click.prevent="addAge">나이 증가</a>
+
+      <hr />
+      <p v-html="content"></p>
+      <button :disabled="isDis">버튼</button>
+
+      <p v-bind="attObj">여러개의 속성</p>
+      <p v-once>{{age}}</p>
     </div>
     <script>
       const app = Vue.createApp({
         data() {
           return {
             name: "meme",
+            att: "title",
             age: 35,
+            text: "오늘은 흐린 날씨입니다",
+            content: "<strong>test</strong>",
+            isDis: true,
+            attObj: {
+              id: "meme",
+              class: "memeclass",
+              style: "color:red",
+            },
           };
         },
         computed: {
