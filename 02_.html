@@ -12,16 +12,25 @@
       <h1>안녕하세요</h1>
       <input type="text" v-model="name" />
       <h2>이름 : {{name}}</h2>
+      <hr />
+      <input type="text" v-model="age" />
+      <h2>나이 : {{age}}</h2>
+      <button v-on:click="addAge">나이 증가</button>
     </div>
     <script>
       const app = Vue.createApp({
         data() {
           return {
             name: "meme",
+            age: 10,
           };
         },
+        methods: {
+          addAge() {
+            this.age++;
+          },
+        },
       });
-
       app.mount("#app");
     </script>
   </body>
