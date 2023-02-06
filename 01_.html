@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head> </head>
+  <head></head>
   <body>
-    가나다
+    <input type="text" />
+    <button>확인</button>
+    <p>안녕하세요</p>
   </body>
   <script>
-    window.document.children[0].children[1].textContent = "test";
+    let inputEl = document.getElementsByTagName("input")[0];
+    inputEl.style.border = "2px solid red";
   </script>
 </html>
