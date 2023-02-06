@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head></head>
+  <head>
+    <!-- <style>
+      input {
+        border: 2px solid red;
+      }
+    </style> -->
+  </head>
   <body>
     <input type="text" />
     <button>확인</button>
@@ -8,6 +14,15 @@
   </body>
   <script>
     let inputEl = document.getElementsByTagName("input")[0];
+    let btnEl = document.querySelector("button");
+    let pEl = document.querySelector("p");
+
+    pEl.textContent = "test";
     inputEl.style.border = "2px solid red";
+    btnEl.addEventListener("click", btnFunc);
+
+    function btnFunc() {
+      pEl.textContent = inputEl.value;
+    }
   </script>
 </html>
