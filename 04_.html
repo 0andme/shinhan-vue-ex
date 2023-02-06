@@ -10,19 +10,38 @@
   <body>
     <div id="app">
       <button v-on:click="downNumber(myNum,$event)">감소</button>
+      <button v-on:click.once="(event)=>{downNumber(10,event)}">감소</button>
       <button @:click="upNumber">증가</button>
-      <p>결과:{{number}}</p>
+      <div @click="upNumber">
+        <p @click.stop="some">결과:{{number}}</p>
+      </div>
+      <hr />
+      <input type="text" @input="setName($event)" />
+      <p>name:{{myName}}</p>
+      <hr />
+      <input type="text" @keyup.enter="setName($event)" />
+      <p>name:{{myName}}</p>
+      <hr />
+      <input type="text" @keyup.ctrl.enter="setName($event)" />
+      <p>name:{{myName}}</p>
     </div>
   </body>
   <script>
     const app = Vue.createApp({
       data() {
         return {
+          myName: "",
           myNum: 20,
           number: 0,
         };
       },
       methods: {
+        setName(event) {
+          this.myName = event.target.value;
+        },
+        some() {
+          console.log("some");
+        },
         upNumber() {
           this.number++;
         },
