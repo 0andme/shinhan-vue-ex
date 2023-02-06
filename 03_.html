@@ -11,6 +11,8 @@
     <div id="app">
       <input type="text" :value="name" v-on:input="setName" />
       <h1>{{name}}</h1>
+      <hr />
+      <input type="text" v-model="name" />
     </div>
   </body>
   <script>
