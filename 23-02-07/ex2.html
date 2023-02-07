@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>실습2</title>
+    <script src="https://unpkg.com/vue@3"></script>
+    <style>
+      li {
+        background-color: #c3c3c3;
+        border-radius: 5px;
+        padding: 10px;
+        margin: 10px;
+        list-style-type: none;
+      }
+      .light {
+        color: #8c8c8c;
+        font-size: 14px;
+      }
+      p {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <ul>
+        <li v-for="data in datas">
+          <p>
+            <strong>Name</strong>{{data.name}}<span class="light"
+              >({{data.username}})</span
+            >
+          </p>
+          <p>
+            <strong>City</strong
+            >{{data.address.city}},{{data.address.zipcode}}<span class="light"
+              >({{data.address.geo.lat}},{{data.address.geo.lng}})
+            </span>
+          </p>
+          <p>
+            <strong>Street</strong>{{data.address.street}}<span class="light"
+              >({{data.address.zipcode}})</span
+            >
+          </p>
+          <p><strong>E-mail</strong>{{data.email}}</p>
+          <p><strong>Phone</strong>{{data.phone}}</p>
+        </li>
+      </ul>
+    </div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          datas: [],
+        };
+      },
+
+      methods: {},
+      created() {
+        fetch("https://jsonplaceholder.typicode.com/users")
+          .then((response) => {
+            return response.json();
+          })
+          .then((datas) => {
+            this.datas = datas;
+          });
+      },
+    });
+    app.mount("#app");
+  </script>
+</html>
