@@ -22,7 +22,7 @@
       <div v-else>
         <h2>칼로리 기록</h2>
         <ul>
-          <li>{{myKcal[0].date}} {{ myKcal[0].value}}kcal</li>
+          <li v-for="item in myKcal">{{item.date}} : {{item.value}}kcal</li>
         </ul>
       </div>
     </div>
@@ -37,16 +37,20 @@
       },
       computed: {
         isEmpty() {
-          if (this.myKcal[0]) return false;
-          else return true;
+          if (this.myKcal.length === 0) return true;
+          else return false;
         },
       },
 
       methods: {
         addKcal() {
-          let nowDate = new Date();
+          const nowDate = new Date();
+          const year = nowDate.getFullYear();
+          const month = nowDate.getMonth() + 1;
+          const day = nowDate.getDate();
+
           this.myKcal.push({
-            date: nowDate.toLocaleDateString(),
+            date: `${year}-${month}-${day}`,
             value: this.inputData,
           });
         },
