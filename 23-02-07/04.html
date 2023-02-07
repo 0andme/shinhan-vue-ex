@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>스타일 바인딩</title>
+    <script src="https://unpkg.com/vue@3"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      #app {
+        display: flex;
+        margin: 20px;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        gap: 30px;
+      }
+      .text {
+        width: 150px;
+        height: 100px;
+        border: 2px solid #333;
+        border-radius: 5px;
+      }
+      .on {
+        border-color: red;
+      }
+      .red {
+        border-color: red;
+      }
+      .orange {
+        border-color: orange;
+      }
+      .blue {
+        border-color: blue;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <p class="text" :class="text1Css" @click="clickedText('red')">
+        첫번째 글입니다
+      </p>
+      <p class="text" :class="text2Css" @click="clickedText('orange')">
+        두번째 글입니다
+      </p>
+      <p class="text" :class="text3Css" @click="clickedText('blue')">
+        세번째 글입니다
+      </p>
+    </div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          text1: false,
+          text2: false,
+          text3: false,
+        };
+      },
+      computed: {
+        text1Css() {
+          return {red: this.text1};
+        },
+        text2Css() {
+          return {orange: this.text2};
+        },
+        text3Css() {
+          return {blue: this.text3};
+        },
+      },
+      methods: {
+        clickedText(text) {
+          if (text === "red") {
+            this.text1 = !this.text1;
+          } else if (text === "orange") {
+            this.text2 = !this.text2;
+          } else if (text === "blue") {
+            this.text3 = !this.text3;
+          }
+        },
+      },
+    });
+    app.mount("#app");
+  </script>
+</html>
