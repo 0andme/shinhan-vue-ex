@@ -7,19 +7,24 @@
     <title>실습2</title>
     <script src="https://unpkg.com/vue@3"></script>
     <style>
-      h1 {
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      #app {
         padding: 0 30px;
+      }
+      h1 {
         color: rgb(0, 0, 158);
       }
       p {
-        margin: 0;
         padding: 3px;
       }
       li {
         background-color: #e2e2e2;
         border-radius: 5px;
         padding: 10px;
-        margin: 10px;
+        margin: 10px 0;
         list-style-type: none;
       }
       .light {
@@ -39,9 +44,10 @@
 
   <body>
     <div id="app">
-      <h1>Students List</h1>
+      <h1 ref="title">Students List</h1>
+      <button @click="change">확인</button>
       <ul>
-        <li v-for="data in datas">
+        <li v-for="(data,i) in datas" :key="data.id">
           <p>
             <strong>Name</strong>{{data.name}}<span class="light"
               >({{data.username}})</span
@@ -63,6 +69,7 @@
             ><a :href="'mailto: '+data.email">{{data.email}}</a>
           </p>
           <p><strong>Phone</strong>{{data.phone}}</p>
+          <a href="" @click.prevent="delUser(i)">삭제</a>
         </li>
       </ul>
     </div>
@@ -75,7 +82,15 @@
         };
       },
 
-      methods: {},
+      methods: {
+        change() {
+          console.log(this.$refs.title);
+          this.$refs.title.textContent = "Test";
+        },
+        delUser(i) {
+          this.datas.splice(i, 1);
+        },
+      },
       created() {
         fetch("https://jsonplaceholder.typicode.com/users")
           .then((response) => {
