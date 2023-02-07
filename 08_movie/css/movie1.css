@@ -173,20 +173,14 @@ body {
   color: red;
 }
 
-.cateList {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 25px;
-
-  font-weight: bold;
+.movie > .tab {
+  text-align: center;
+  font-size: 16px;
 }
-.cateList > button {
-  background: none;
-  border: none;
-  color: white;
-  cursor: pointer;
+.movie > .tab > li {
+  display: inline-block;
+  margin: 0 20px;
 }
-.cateList > button.nowCate {
+.movie > .tab > li.on a {
   color: red;
 }
