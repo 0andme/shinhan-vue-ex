@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>실습</title>
+    <script src="https://unpkg.com/vue@3"></script>
+  </head>
+
+  <body>
+    <div id="app">
+      <h1>칼로리 관리</h1>
+      <input
+        type="text"
+        v-model="inputData"
+        @keyup.enter="addKcal"
+        placeholder="섭취한 칼로리를 입력하세요"
+      />
+      <button @click="addKcal">입력</button>
+      <p v-if="isEmpty">아직 입력하지 않았습니다</p>
+      <div v-else>
+        <h2>칼로리 기록</h2>
+        <ul>
+          <li>{{myKcal[0].date}} {{ myKcal[0].value}}kcal</li>
+        </ul>
+      </div>
+    </div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          myKcal: [],
+          inputData: "",
+        };
+      },
+      computed: {
+        isEmpty() {
+          if (this.myKcal[0]) return false;
+          else return true;
+        },
+      },
+
+      methods: {
+        addKcal() {
+          let nowDate = new Date();
+          this.myKcal.push({
+            date: nowDate.toLocaleDateString(),
+            value: this.inputData,
+          });
+        },
+      },
+    });
+    app.mount("#app");
+  </script>
+</html>
