@@ -24,11 +24,9 @@
         height: 100px;
         border: 2px solid #333;
         border-radius: 5px;
-        opacity: 0;
       }
       .on {
         border-color: red;
-        opacity: 1;
       }
     </style>
   </head>
@@ -38,10 +36,10 @@
       <p :class="text1?'text on':'text'" @click="clickedText($event,'red')">
         첫번째 글입니다
       </p>
-      <p :class="text2?'text on':'text'" @click="clickedText($event,'orange')">
+      <p :class="{text:true,on:text2}" @click="clickedText($event,'orange')">
         두번째 글입니다
       </p>
-      <p :class="text3?'text on':'text'" @click="clickedText($event,'blue')">
+      <p class="text" :class="{on:text3}" @click="clickedText($event,'blue')">
         세번째 글입니다
       </p>
     </div>
