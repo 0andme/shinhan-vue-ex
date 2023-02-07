@@ -45,10 +45,10 @@
       <p class="text" :class="text1Css" @click="clickedText('red')">
         첫번째 글입니다
       </p>
-      <p class="text" :class="text2Css" @click="clickedText('orange')">
+      <p :class="['text',text2Css]" @click="clickedText('orange')">
         두번째 글입니다
       </p>
-      <p class="text" :class="text3Css" @click="clickedText('blue')">
+      <p :class="['text',{blue:text3}]" @click="clickedText('blue')">
         세번째 글입니다
       </p>
     </div>
