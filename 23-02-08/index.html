@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3"></script>
+  </head>
+  <body>
+    <div id="app">
+      <div>
+        <input type="checkbox" id="checkbox" v-model="checkBox" />
+        <label for="checkbox">{{ checkBox }}</label>
+      </div>
+      <hr />
+      <div>
+        <div>체크된 이름: {{ checkedNames }}</div>
+        <input type="checkbox" id="을수" value="을수" v-model="checkedNames" />
+        <label for="을수">을수</label>
+        <input type="checkbox" id="민교" value="민교" v-model="checkedNames" />
+        <label for="민교">민교</label>
+        <input type="checkbox" id="mike" value="희민" v-model="checkedNames" />
+        <label for="희민">희민</label>
+      </div>
+    </div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          checkedNames: [],
+          checkBox: "",
+        };
+      },
+    });
+    app.mount("#app");
+  </script>
+</html>
