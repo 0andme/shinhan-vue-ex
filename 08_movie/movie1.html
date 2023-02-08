@@ -10,6 +10,15 @@
   </head>
   <body>
     <div class="movie">
+      <!-- <ul ref="tab" @click.prevent="setContext($event)" class="tab">
+        <li
+          :data-cate="val"
+          v-for="(val,key) in listCate"
+          :class="{on:movContext===val}"
+        >
+          <a href=""> {{key}}</a>
+        </li>
+      </ul> -->
       <!-- tab list -->
       <ul ref="tab" @click.prevent="setContext($event)" class="tab">
         <li
@@ -67,6 +76,13 @@
       const app = Vue.createApp({
         data() {
           return {
+            // listCate: {
+            //   예매순: "ticketing",
+            //   평점순: "score",
+            //   개봉일순: "openDate",
+            //   주말관객순: "week",
+            //   다운로드순: "sale",
+            // },
             cateList: [
               {name: "예매순", val: "ticketing"},
               {name: "평점순", val: "score"},
@@ -166,22 +182,21 @@
             ],
           };
         },
-        created() {
-          this.movies = this.movies
-            .map((movie) => ({
-              ...movie,
-              rate: [movie.rate, this.rateMach[movie.rate]],
-            }))
-            .sort(
-              (movieA, movieB) =>
-                movieB[this.movContext] - movieA[this.movContext]
-            );
-        },
+
         watch: {
           movContext(newCxt, oldXct) {
             // 바뀐 탭에 따라 소팅하기
             this.setOrder(newCxt);
           },
+        },
+        mounted() {
+          // rate 데이터 손 보기
+          this.movies = this.movies.map((movie) => ({
+            ...movie,
+            rate: [movie.rate, this.rateMach[movie.rate]],
+          }));
+          // 시작 시 소팅하기
+          this.setOrder(this.movContext);
         },
         methods: {
           setOrder(cxt) {
