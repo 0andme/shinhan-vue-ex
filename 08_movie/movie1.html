@@ -10,15 +10,17 @@
   </head>
   <body>
     <div class="movie">
-      <ul class="tab">
+      <!-- tab list -->
+      <ul @click.prevent="setContext($event),setCurTab($event)" class="tab">
         <li
+          :data-cate="cate.val"
           v-for="cate in cateList"
-          :class="(cate.val===nowCate)?'on':''"
-          @click.prevent="changeCate(cate.val)"
+          :class="{on:movContext===cate.val}"
         >
           <a href=""> {{cate.name}}</a>
         </li>
       </ul>
+      <!-- 영화 리스트 -->
       <ol class="list">
         <li v-for="(movie,i) in movies" :key="movie.name">
           <a href="">
@@ -31,20 +33,28 @@
             >
             <strong class="rank">{{i+1}}</strong>
             <img class="poster" :src="movie.src" :alt="movie.name" />
-            <span v-if="nowCate==='ticketing'" class="desc">
+            <!-- 예매순 -->
+            <span v-if="movContext==='ticketing'" class="desc">
               <i class="reserve_title">예매율</i>
               <em class="reserv_num">{{movie.ticketing}}%</em>
             </span>
-            <span v-else-if="nowCate==='score'" class="desc">
+            <!-- 평점순 -->
+            <span v-else-if="movContext==='score'" class="desc">
               <i class="star"><b :style="{'width': movie.score*10+'%'}"></b></i>
-              <em class="score">{{movie.score}}</em> </span
-            ><span v-else-if="nowCate==='openDate'" class="desc">
+              <em class="score">{{movie.score}}</em>
+            </span>
+            <!-- 개봉일순 -->
+            <span v-else-if="movContext==='openDate'" class="desc">
               <i class="open_title">{{movie.openDate}}</i>
-              <em class="open_num">개봉</em> </span
-            ><span v-else-if="nowCate==='week'" class="desc">
+              <em class="open_num">개봉</em>
+            </span>
+            <!-- 주말관객순 -->
+            <span v-else-if="movContext==='week'" class="desc">
               <i class="week_title">주말관객수</i>
-              <em class="week_num">{{movie.week}} 명</em> </span
-            ><span v-else-if="nowCate==='sale'" class="desc">
+              <em class="week_num">{{movie.week}}명</em>
+            </span>
+            <!-- 다운로드수 -->
+            <span v-else-if="movContext==='sale'" class="desc">
               <i class="sale_title">판매율</i>
               <em class="sale_num">{{movie.sale}} %</em>
             </span>
@@ -64,7 +74,7 @@
               {name: "주말관객순", val: "week"},
               {name: "다운로드순", val: "sale"},
             ],
-            nowCate: "ticketing",
+            movContext: "ticketing",
             rateMach: {
               0: "전체관람가",
               12: "12세이상 관람가",
@@ -163,15 +173,33 @@
               rate: [movie.rate, this.rateMach[movie.rate]],
             }))
             .sort(
-              (movieA, movieB) => movieB[this.nowCate] - movieA[this.nowCate]
+              (movieA, movieB) =>
+                movieB[this.movContext] - movieA[this.movContext]
             );
         },
-        methods: {
-          changeCate(cateVal) {
-            this.nowCate = cateVal;
+        watch: {
+          movContext(newCxt, oldXct) {
+            // 바뀐 탭에 따라 소팅하기
             this.movies.sort(
-              (movieA, movieB) => movieB[this.nowCate] - movieA[this.nowCate]
+              (movieA, movieB) => movieB[this.newCxt] - movieA[this.newCxt]
             );
+          },
+        },
+        methods: {
+          setCurTab(event) {
+            console.log("aa");
+            if (event.target.tagName === "A") {
+              if (event.target.parentNode.dataset.cate === this.movContext) {
+                event.target.parentNode.classList.add("on");
+              } else {
+                event.target.parentNode.classList.remove("on");
+              }
+            }
+          },
+          setContext(event) {
+            if (event.target.tagName === "A") {
+              this.movContext = event.target.parentNode.dataset.cate;
+            }
           },
         },
       });
