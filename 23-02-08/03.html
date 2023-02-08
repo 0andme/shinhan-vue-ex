@@ -46,7 +46,7 @@
   </head>
   <body>
     <div id="app">
-      <h1>Sales Product({{total}}원)</h1>
+      <h1>Sales Product({{totalCount}}) - {{total}}원</h1>
       <product-list
         :chips-data="chips"
         like="10"
@@ -82,7 +82,7 @@
               <strong>{{chip.title}}</strong>
               <span>{{chip.desc}}</span>
               <b>{{chip.price}}</b>
-              <button @click="addMoney(chip.price)">구입하기</button>
+              <button @click="addMoney(i)">구입하기</button>
             </li>
           </ul>
       `,
@@ -91,32 +91,33 @@
       data() {
         return {
           total: 0,
+          totalCount: 0,
           chips: [
             {
               img: `images/mango.jpg`,
               title: `자연그대로 망고칩`,
               desc: `단맛이 그대로 살아있는 망고칩입니다.`,
-              price: `2500`,
+              price: 2500,
             },
             {
               img: `images/apple.jpg`,
               title: `천연 오가닉 사과칩`,
               desc: `깨끗한 재료를 엄선하여 자연을 그대로 담았습니다.`,
-              price: `2000`,
+              price: 2000,
             },
             {
               img: `images/jujube.jpg`,
               title: `아이깨끗 대추칩`,
               desc: `새콤함이 살아있는 반건조 대추그대로.`,
-              price: `3000`,
+              price: 3000,
             },
           ],
         };
       },
       methods: {
-        addMoney(price) {
-          console.log(price + "받음");
-          this.total += price;
+        addMoney(index) {
+          this.total += this.chips[index].price;
+          this.totalCount += 1;
         },
       },
       components: {productList},
