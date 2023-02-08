@@ -60,7 +60,7 @@
       <product-list
         :chips-data="chips"
         like="10"
-        @add-money="addMoney"
+        @add-item="addItem"
       ></product-list>
     </div>
   </body>
@@ -71,14 +71,14 @@
           k: this.like,
         };
       },
-      emits: ["add-money"],
+      emits: ["add-item"],
       methods: {
         a() {
           this.k = 20;
           return this.k;
         },
-        addMoney(price) {
-          this.$emit("add-money", Number(price));
+        addItem(price) {
+          this.$emit("add-item", Number(price));
         },
       },
       props: {
@@ -92,7 +92,7 @@
               <strong>{{chip.title}}</strong>
               <span>{{chip.desc}}</span>
               <b>{{chip.price}}</b>
-              <button @click="addMoney(i)">구입하기</button>
+              <button @click="addItem(i)">구입하기</button>
             </li>
           </ul>
       `,
@@ -126,7 +126,7 @@
         };
       },
       methods: {
-        addMoney(index) {
+        addItem(index) {
           this.total += this.chips[index].price;
           this.totalCount += 1;
           this.cartList.push(this.chips[index]);
