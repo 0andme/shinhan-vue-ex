@@ -11,7 +11,7 @@
   <body>
     <div class="movie">
       <!-- tab list -->
-      <ul @click.prevent="setContext($event),setCurTab($event)" class="tab">
+      <ul ref="tab" @click.prevent="setContext($event)" class="tab">
         <li
           :data-cate="cate.val"
           v-for="cate in cateList"
@@ -180,21 +180,12 @@
         watch: {
           movContext(newCxt, oldXct) {
             // 바뀐 탭에 따라 소팅하기
-            this.movies.sort(
-              (movieA, movieB) => movieB[this.newCxt] - movieA[this.newCxt]
-            );
+            this.setOrder(newCxt);
           },
         },
         methods: {
-          setCurTab(event) {
-            console.log("aa");
-            if (event.target.tagName === "A") {
-              if (event.target.parentNode.dataset.cate === this.movContext) {
-                event.target.parentNode.classList.add("on");
-              } else {
-                event.target.parentNode.classList.remove("on");
-              }
-            }
+          setOrder(cxt) {
+            this.movies.sort((movieA, movieB) => movieB[cxt] - movieA[cxt]);
           },
           setContext(event) {
             if (event.target.tagName === "A") {
