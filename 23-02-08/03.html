@@ -46,50 +46,78 @@
   </head>
   <body>
     <div id="app">
-      <h1>Sales Product</h1>
-      <product-list></product-list>
+      <h1>Sales Product({{total}}원)</h1>
+      <product-list
+        :chips-data="chips"
+        like="10"
+        @add-money="addMoney"
+      ></product-list>
     </div>
   </body>
   <script>
     const productList = {
       data() {
         return {
-          chips: [
-            {
-              img: `images/mango.jpg`,
-              title: `자연그대로 망고칩`,
-              desc: `단맛이 그대로 살아있는 망고칩입니다.`,
-              price: `2,500원`,
-            },
-            {
-              img: `images/apple.jpg`,
-              title: `천연 오가닉 사과칩`,
-              desc: `깨끗한 재료를 엄선하여 자연을 그대로 담았습니다.`,
-              price: `2,000원`,
-            },
-            {
-              img: `images/jujube.jpg`,
-              title: `아이깨끗 대추칩`,
-              desc: `새콤함이 살아있는 반건조 대추그대로.`,
-              price: `3,000원`,
-            },
-          ],
+          k: this.like,
         };
+      },
+      emits: ["add-money"],
+      methods: {
+        a() {
+          this.k = 20;
+          return this.k;
+        },
+        addMoney(price) {
+          this.$emit("add-money", Number(price));
+        },
+      },
+      props: {
+        chipsData: Array,
+        like: String,
       },
       template: `
           <ul class="list">
-            <li v-for='chip in chips' :key='chip.title'>
+            <li v-for='(chip,i) in chipsData' :key='chip.title'>
               <img :src="chip.img" />
               <strong>{{chip.title}}</strong>
               <span>{{chip.desc}}</span>
               <b>{{chip.price}}</b>
+              <button @click="addMoney(chip.price)">구입하기</button>
             </li>
           </ul>
       `,
     };
     const app = Vue.createApp({
       data() {
-        return {};
+        return {
+          total: 0,
+          chips: [
+            {
+              img: `images/mango.jpg`,
+              title: `자연그대로 망고칩`,
+              desc: `단맛이 그대로 살아있는 망고칩입니다.`,
+              price: `2500`,
+            },
+            {
+              img: `images/apple.jpg`,
+              title: `천연 오가닉 사과칩`,
+              desc: `깨끗한 재료를 엄선하여 자연을 그대로 담았습니다.`,
+              price: `2000`,
+            },
+            {
+              img: `images/jujube.jpg`,
+              title: `아이깨끗 대추칩`,
+              desc: `새콤함이 살아있는 반건조 대추그대로.`,
+              price: `3000`,
+            },
+          ],
+        };
+      },
+      methods: {
+        addMoney(price) {
+          console.log(price + "받음");
+          this.total += price;
+        },
       },
       components: {productList},
     });
