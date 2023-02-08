@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>form</title>
     <script src="https://unpkg.com/vue@3"></script>
   </head>
   <body>
@@ -23,6 +23,27 @@
         <input type="checkbox" id="mike" value="희민" v-model="checkedNames" />
         <label for="희민">희민</label>
       </div>
+      <hr />
+      <div>선택됨: {{ selectBox }}</div>
+
+      <select v-model="selectBox" multiple>
+        <option disabled value="">다음 중 하나를 선택하세요</option>
+        <option>가</option>
+        <option>나</option>
+        <option>다</option>
+      </select>
+
+      <hr />
+      <div>선택됨: {{ selectBoxs }}</div>
+
+      <select v-model="selectBoxs" multiple>
+        <option disabled value="">다음 중 하나를 선택하세요</option>
+        <option v-for="item in options" :value="item.text">
+          {{ item.text }}
+        </option>
+      </select>
+      <hr />
+      <input type="text" v-model.number.lazy="age" @keyup.enter="getAge" />
     </div>
   </body>
   <script>
@@ -31,7 +52,20 @@
         return {
           checkedNames: [],
           checkBox: "",
+          selectBox: [],
+          selectBoxs: [],
+          options: [
+            {text: "공부하기", value: "study"},
+            {text: "게임하기", value: "game"},
+            {text: "그리기", value: "paint"},
+          ],
+          age: 0,
         };
+      },
+      methods: {
+        getAge() {
+          console.log(typeof this.age);
+        },
       },
     });
     app.mount("#app");
