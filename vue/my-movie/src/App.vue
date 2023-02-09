@@ -11,7 +11,7 @@
       </li>
     </ul>
     <!-- 영화 리스트 -->
-    <MovieList :movies="movies" :mov-context="movContext"></MovieList>
+    <movie-list :movies="movies" :mov-context="movContext"></movie-list>
   </div>
 </template>
 
