@@ -1,26 +1,37 @@
 <template>
   <ul class="list">
-    <li v-for="news in listDate" :key="news.id">
-      <b>{{ news.time_ago }}</b>
+    <li v-for="item in listDate" :key="item.id">
+      <b>{{ item.time_ago }}</b>
       <!-- 현재 route.name이 news일 때 -->
 
       <template v-if="$route.name === 'news'">
         <span>
           by
-          <router-link :to="'/user/' + news.user">{{ news.user }}</router-link>
+          <router-link :to="`/user/${item.user}`">{{ item.user }}</router-link>
         </span>
         <br />
-        <a :href="news.url"
-          >{{ news.title }} <i>({{ news.comments_count }})</i>
+        <a :href="item.url"
+          >{{ item.title }} <i>({{ item.comments_count }})</i>
         </a>
       </template>
-
-      <!-- 현재 route.name이 new가 아닐 때 -->
+      <!-- ask 일 때 -->
+      <template v-else-if="$route.name === 'ask'">
+        <span>
+          by
+          <router-link :to="`/user/${item.user}`">
+            {{ item.user }}
+          </router-link> </span
+        ><br />
+        <router-link :to="item.url"
+          >{{ item.title }}<i>({{ item.comments_count }})</i></router-link
+        >
+      </template>
+      <!-- 현재 route.name이 new,ask가 아닐 때 -->
       <template v-else>
-        <span> by {{ news.user }}</span>
+        <span> by {{ item.user }}</span>
         <br />
-        <a :href="news.url"
-          >{{ news.title }} <i>({{ news.comments_count }})</i>
+        <a :href="item.url"
+          >{{ item.title }} <i>({{ item.comments_count }})</i>
         </a>
       </template>
     </li>

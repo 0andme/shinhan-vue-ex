@@ -1,10 +1,11 @@
 import {createStore} from "vuex";
-import {fetchListItem, fetchUserInfo} from "../api/index.js";
+import {fetchListItem, fetchUserInfo, fetchAskItem} from "../api/index.js";
 
 export default createStore({
   state: {
     list: [],
     user: "",
+    item: "",
   },
   getters: {},
   mutations: {
@@ -13,6 +14,9 @@ export default createStore({
     },
     SET_USER(state, user) {
       state.user = user;
+    },
+    SET_ITEM(state, item) {
+      state.item = item;
     },
   },
   actions: {
@@ -28,6 +32,14 @@ export default createStore({
       return fetchUserInfo(userName)
         .then((res) => {
           context.commit("SET_USER", res.data);
+          return res;
+        })
+        .catch((err) => console.log(err));
+    },
+    FETCH_ITEM(context, askId) {
+      return fetchAskItem(askId)
+        .then((res) => {
+          context.commit("SET_ITEM", res.data);
           return res;
         })
         .catch((err) => console.log(err));
