@@ -30,9 +30,7 @@
       <template v-else>
         <span> by {{ item.user }}</span>
         <br />
-        <a :href="item.url"
-          >{{ item.title }} <i>({{ item.comments_count }})</i>
-        </a>
+        <a :href="item.url">{{ item.title }} </a>
       </template>
     </li>
   </ul>
