@@ -3,7 +3,7 @@ import HomeView from "../views/HomeView.vue";
 import NewsView from "../views/NewsView.vue";
 import AskView from "../views/AskView.vue";
 import JobsView from "../views/JobsView.vue";
-
+import UserView from "../views/UserView.vue";
 const routes = [
   {
     path: "/",
@@ -24,6 +24,11 @@ const routes = [
     path: "/jobs",
     name: "jobs",
     component: JobsView,
+  },
+  {
+    path: "/user/:id",
+    name: "user",
+    component: UserView,
   },
 ];
 
