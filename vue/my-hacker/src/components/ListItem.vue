@@ -14,6 +14,7 @@
           >{{ news.title }} <i>({{ news.comments_count }})</i>
         </a>
       </template>
+
       <!-- 현재 route.name이 new가 아닐 때 -->
       <template v-else>
         <span> by {{ news.user }}</span>

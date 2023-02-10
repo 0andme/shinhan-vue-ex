@@ -1,13 +1,22 @@
 <template>
   <div class="user_profile">
-    <strong>User name : </strong>
-    <b>Write : </b>
-    <b>Karma : </b>
+    <strong>User name : {{ userInfo.id }}</strong>
+    <b>Write :{{ userInfo.created }} </b>
+    <b>Karma :{{ userInfo.karma }} </b>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  computed: {
+    userInfo() {
+      return this.$store.state.user;
+    },
+  },
+  created() {
+    this.$store.dispatch("FETCH_USER", this.$route.params.id);
+  },
+};
 </script>
 
 <style scoped>
