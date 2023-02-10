@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h2>news</h2>
     <list-item :list-date="list"></list-item>
   </div>
 </template>
