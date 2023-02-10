@@ -10,9 +10,10 @@
           <router-link :to="`/user/${item.user}`">{{ item.user }}</router-link>
         </span>
         <br />
-        <a :href="item.url"
-          >{{ item.title }} <i>({{ item.comments_count }})</i>
-        </a>
+        <a :href="item.url">{{ item.title }} </a>
+        <router-link :to="`item?id=${item.id}`"
+          ><i> ({{ item.comments_count }})</i></router-link
+        >
       </template>
       <!-- ask 일 때 -->
       <template v-else-if="$route.name === 'ask'">
