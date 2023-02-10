@@ -2,6 +2,8 @@
   <ul class="list">
     <li v-for="news in listDate" :key="news.id">
       <b>{{ news.time_ago }}</b>
+      <!-- 현재 route.name이 news일 때 -->
+
       <template v-if="$route.name === 'news'">
         <span>
           by
@@ -12,7 +14,7 @@
           >{{ news.title }} <i>({{ news.comments_count }})</i>
         </a>
       </template>
-      <!-- jobs일떄 -->
+      <!-- 현재 route.name이 new가 아닐 때 -->
       <template v-else>
         <span> by {{ news.user }}</span>
         <br />
