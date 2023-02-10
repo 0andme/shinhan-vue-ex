@@ -1,32 +1,21 @@
 <template>
   <div>
     <h2>news</h2>
-    <ul class="list">
-      <li v-for="news in list" :key="news.id">
-        <b>{{ news.time_ago }}</b>
-        <span> by {{ news.user }}</span
-        ><br />
-        <a :href="news.url"
-          >{{ news.title }} <i>({{ news.comments_count }})</i></a
-        >
-      </li>
-    </ul>
+    <list-item :list-date="list"></list-item>
   </div>
 </template>
 
 <script>
-import axios from "axios";
-
+import ListItem from "../components/ListItem.vue";
 export default {
-  data() {
-    return {
-      list: [],
-    };
+  components: {ListItem},
+  computed: {
+    list() {
+      return this.$store.state.list;
+    },
   },
   created() {
-    axios.get("https://api.hnpwa.com/v0/news/1.json").then((res) => {
-      this.list = res.data;
-    });
+    this.$store.dispatch("FETCH_LIST", "news");
   },
 };
 </script>
