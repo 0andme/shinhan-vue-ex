@@ -3,21 +3,19 @@
     <div class="user_profile">
       <span>by </span>
       <strong>
-        <router-link :to="`/user/${askItem.user}`">{{
-          askItem.user
-        }}</router-link>
+        <router-link :to="`/user/${askItem.user}`">
+          {{ askItem.user }}
+        </router-link>
       </strong>
-      <b> - {{ askItem.time_ago }}</b>
+      <b>- {{ askItem.time_ago }}</b>
     </div>
     <h2>{{ askItem.title }}</h2>
     <p v-html="askItem.content"></p>
-
     <!-- 댓글 리스트 -->
     <ul class="comments">
       <li v-for="comment in askItem.comments" :key="comment.id">
         <i class="fas fa-arrow-right"></i>
         <div v-html="comment.content"></div>
-        <!-- <div>v-html</div> -->
       </li>
     </ul>
   </div>
